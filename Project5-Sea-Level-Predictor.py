@@ -5,7 +5,7 @@ from scipy.stats import linregress
 
 def draw_plot():
     # Read data from file
-    df = pd.read_csv(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Datasets\epa-sea-level.csv")
+    df = pd.read_csv("epa-sea-level.csv")
 
 
     # Create scatter plot
@@ -31,8 +31,6 @@ def draw_plot():
     plt.legend()
     
 
-    # Save plot and return data for testing
-    plt.savefig(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Figures\sea_level_plot.png")
+    # Save plot and return data (useful for testing)
+    plt.savefig("sea_level_plot.png")
     return plt.gca()
-
-draw_plot()
