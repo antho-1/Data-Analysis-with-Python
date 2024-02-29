@@ -4,29 +4,30 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Import data
-df = pd.read_csv(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Datasets\medical_examination.csv")
+df = pd.read_csv("medical_examination.csv")
 
-# Add 'overweight' column
+# Add 'overweight' column:
+# Calculate BMI and classify accordingly (overweight if BMI > 25)
 df['overweight'] = (df['weight'] / ((df['height'] / 100)**2)).apply(lambda x: 1 if x > 25 else 0)
 
 
-# Normalize data by making 0 always good and 1 always bad. If the value of 'cholesterol' or 'gluc' is 1, make the value 0. If the value is more than 1, make the value 1.
+# Normalize data by making 0 always good and 1 always bad.
+# If the value of 'cholesterol' or 'gluc' is 1, make the value 0. If the value is more than 1, make the value 1.
 df[['cholesterol', 'gluc']] = (df[['cholesterol', 'gluc']] > 1).astype(int)
 
 
 # Draw Categorical Plot
 def draw_cat_plot():
-    # Create DataFrame for cat plot using `pd.melt` using just the values from 'cholesterol', 'gluc', 'smoke', 'alco', 'active', and 'overweight'.
+    # Create DataFrame for cat plot using pd.melt using just the values from 'cholesterol', 'gluc', 'smoke', 'alco', 'active', and 'overweight'.
     df_cat = pd.melt(df, id_vars="cardio", value_vars=["cholesterol", "gluc", "smoke", "alco", "active", "overweight"])
 
 
-    # Group and reformat the data to split it by 'cardio'. Show the counts of each feature. You will have to rename one of the columns for the catplot to work correctly.
+    # Group and reformat the data to split it by 'cardio'. Show the counts of each feature.
     df_cat = df_cat.groupby(['cardio', 'variable', 'value']).size().reset_index()
     df_cat = df_cat.rename(columns={0: 'total'})
 
 
-    # Draw the catplot with 'sns.catplot()'
-
+    # Draw the catplot with sns.catplot()
     # Get the figure for the output
     fig = sns.catplot(x="variable", y="total", hue="value", col="cardio", data=df_cat, kind="bar")
     fig.savefig(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Figures\catplot.png")
@@ -62,7 +63,3 @@ def draw_heat_map():
     sns.heatmap(corr, mask=mask, annot=True, fmt=".2f", center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
     fig.savefig(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Figures\heatmap.png")
     return fig
-
-
-draw_cat_plot()
-draw_heat_map()
