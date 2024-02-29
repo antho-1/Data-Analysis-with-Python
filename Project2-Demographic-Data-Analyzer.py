@@ -3,7 +3,7 @@ import pandas as pd
 
 def calculate_demographic_data(print_data=True):
     # Read data from file
-    df = pd.read_csv(r"C:\Users\antho\OneDrive\Documents\Projects\Data Analysis\Datasets\adult_data.csv")
+    df = pd.read_csv("adult_data.csv")
     
     # Count occurrences by race
     race_count = df['race'].value_counts()
@@ -18,8 +18,7 @@ def calculate_demographic_data(print_data=True):
 
     # Calculate the percentage of people with advanced education
     # (`Bachelors`, `Masters`, or `Doctorate`) that make more than 50K per year
-    # Also calculate the percentage of those without advanced education
-    # that make >50K per yer
+    # Also calculate the percentage of those without advanced education that make >50K per yer
 
     degrees = ['Bachelors', 'Masters', 'Doctorate']
     higher_education = df[df['education'].isin(degrees)].shape[0]
@@ -87,5 +86,3 @@ def calculate_demographic_data(print_data=True):
         highest_earning_country_percentage,
         'top_IN_occupation': top_IN_occupation
     }
-
-calculate_demographic_data()
