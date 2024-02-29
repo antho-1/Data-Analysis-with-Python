@@ -5,8 +5,8 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 
-# Import data (Make sure to parse dates. Consider setting index column to 'date'.)
-df = pd.read_csv(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Datasets\fcc-forum-pageviews.csv", index_col="date", parse_dates=True)
+# Import data
+df = pd.read_csv("fcc-forum-pageviews.csv", index_col="date", parse_dates=True)
 
 
 # Clean data
@@ -29,8 +29,8 @@ def draw_line_plot():
     # Rotate x-axis labels for readability
     plt.xticks(rotation=45)
 
-    # Save image and return fig (don't change this part)
-    fig.savefig(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Figures\line_plot.png")
+    # Save image and return fig
+    fig.savefig("line_plot.png")
     return fig
 
 
@@ -56,8 +56,8 @@ def draw_bar_plot():
     chart = sns.barplot(data=df_bar, x="Years", y="Average Page Views", hue="Months", palette="tab10")
     chart.set_xticklabels(chart.get_xticklabels(), horizontalalignment='center')
 
-    # Save image and return fig (don't change this part)
-    fig.savefig(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Figures\bar_plot.png")
+    # Save image and return fig
+    fig.savefig("bar_plot.png")
     return fig
 
 
@@ -68,7 +68,7 @@ def draw_box_plot():
     df_box['year'] = [d.year for d in df_box.date]
     df_box['month'] = [d.strftime('%b') for d in df_box.date]
 
-    # Draw box plots (using Seaborn)
+    # Draw box plots using Seaborn
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
 
     # Year-wise box plot
@@ -81,7 +81,7 @@ def draw_box_plot():
     )
     ax1.set_title("Year-wise Box Plot (Trend)")
 
-    # Month-wise box plot with rotated x-axis labels
+    # Month-wise box plot with rotated x-axis labels for readability
     sns.boxplot(
         x = "month",
         y = "value",
@@ -95,10 +95,6 @@ def draw_box_plot():
 
     plt.tight_layout()
 
-    # Save image and return fig (don't change this part)
-    fig.savefig(r"C:\Users\antho\OneDrive\Education\FreeCodeCamp\Data Analysis with Python\Figures\box_plot.png")
+    # Save image and return fig
+    fig.savefig("box_plot.png")
     return fig
-
-draw_line_plot()
-draw_bar_plot()
-draw_box_plot()
